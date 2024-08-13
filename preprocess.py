@@ -364,3 +364,88 @@ lifestyle_data.groupby("Sleep Disorder")["Daily Steps"].value_counts()
 lifestyle_data.groupby("Sleep Disorder")["Daily Steps"].value_counts() / lifestyle_data[
     "Sleep Disorder"
 ].value_counts()
+
+
+# ### Gender is categorical, nominal
+# ### Occupation is categorical, nominal
+#
+# ### BMI Category is categorical, ordinal
+# ### Blood Pressure is categorical, ordinal
+# ### Sleep Disorder is categorcal ordinal
+
+# In[73]:
+
+
+# https://en.wikipedia.org/wiki/Blood_pressure
+# https://www.medicinenet.com/blood_pressure_chart_reading_by_age/article.htm
+
+blood_uniq = lifestyle_data["Blood Pressure"].unique()
+for pressure in blood_uniq:
+    lst_int = list(map(int, pressure.split("/")))
+    if lst_int[0] < 100 or lst_int[1] < 70:
+        print(f"Hypotension: {pressure} {lst_int[0], lst_int[1]}")  # ?
+    elif lst_int[0] < 120 and lst_int[1] < 80:
+        print(f"Normal: {pressure} {lst_int[0], lst_int[1]}")  # 0
+    elif 120 < lst_int[0] < 129 and lst_int[1] < 80:
+        print(f"Elevated: {pressure} {lst_int[0], lst_int[1]}")  # 1
+    elif 130 < lst_int[0] < 139 or 80 < lst_int[1] < 89:
+        print(f"Hypertension, stage 1: {pressure} {lst_int[0], lst_int[1]}")  # 2
+    elif lst_int[0] >= 140 or lst_int[1] >= 90:
+        print(f"Hypertension, stage 2: {pressure} {lst_int[0], lst_int[1]}")  # 3
+
+
+# since Hypotension does not have any records its possible to ignore that.
+
+# In[78]:
+
+
+normal_pressure = ["117/76", "118/76", "115/75", "115/78", "119/77", "118/75"]
+elevated_pressure = ["121/79"]
+hypertension_stage_1 = [
+    "126/83",
+    "132/87",
+    "130/86",
+    "128/85",
+    "131/86",
+    "128/84",
+    "135/88",
+    "129/84",
+    "130/85",
+    "125/82",
+    "135/90",
+]
+hypertension_stage_2 = ["140/90", "142/92", "140/95", "139/91"]
+
+# level 0 : Normal blood pressure
+# level 1 : Elevated blood pressure
+# level 2 : Hypertension, stage 1 blood pressure
+# level 3 : Hypertension, stage 2 blood pressure
+
+
+def func(x):
+    if x in normal_pressure:
+        return 0
+    elif x in elevated_pressure:
+        return 1
+    elif x in hypertension_stage_1:
+        return 2
+    else:
+        return 3
+
+
+lifestyle_data["Blood Pressure"] = lifestyle_data["Blood Pressure"].apply(func)
+
+
+# In[79]:
+
+
+lifestyle_data["Blood Pressure"].unique()
+
+
+# In[80]:
+
+
+lifestyle_data["Blood Pressure"].value_counts()
+
+
+# In[ ]:
