@@ -34,7 +34,7 @@ lifestyle_data.head(5)
 lifestyle_data.columns
 
 
-# ### Fill NaN values with None
+# ### Replace NaN values with 'None'
 
 counts = lifestyle_data.isna().sum()
 print(counts.sort_values())
@@ -46,29 +46,29 @@ lifestyle_data.head(5)
 # ### Check unique rows in dataframe
 
 print(
-    f"number of non duplicate rows is {len(lifestyle_data[lifestyle_data.columns].drop_duplicates())}"
+    f"number of non duplicate rows: {len(lifestyle_data[lifestyle_data.columns].drop_duplicates())}"
 )
 number_entities = lifestyle_data.drop_duplicates().shape[0]
 
 
 # ### Check duplicate rows in dataframe
 
-print(f"number of duplicate rows is {lifestyle_data.duplicated().sum()}")
+print(f"number of duplicate rows: {lifestyle_data.duplicated().sum()}")
 
 
-# ### Check number of the NaN in the dataframe
+# ### Check the number of NaNs in the dataframe
 
 counts = lifestyle_data.isna().sum()
 print(counts.sort_values())
 
 
-# ### drop 'Person ID' column, its not a feature
+# ### Drop 'Person ID' column, its not a feature
 
 lifestyle_data = lifestyle_data.drop("Person ID", axis=1)
 lifestyle_data.shape
 
 
-# ### Check statistic of the dataset
+# ### Check statistics of the dataset
 
 lifestyle_data.describe()
 
@@ -92,14 +92,14 @@ lifestyle_data.nunique()
 # ### Blood Pressure is categorical, ordinal
 # ### Heart Rate is int
 # ### Daily Steps is int
-# ### Sleep Disorder is categorcal ordinal
+# ### Sleep Disorder is categorical ordinal
 
 # ### Check unique value of the Sleep Disorder
 
 lifestyle_data["Sleep Disorder"].unique()
 
 
-# ### Check number of repeatness for each state
+# ### Check frequency of each category in 'Sleep Disorder'
 
 lifestyle_data["Sleep Disorder"].value_counts()
 
@@ -107,7 +107,7 @@ lifestyle_data["Sleep Disorder"].value_counts()
 lifestyle_data["Sleep Disorder"].value_counts() / number_entities
 
 
-# ## As it seems this database is imbalanced. the percentage of the repeatness for None is much more than others. But it is not extermely imbalanced
+# ## It appears this database is imbalanced. The proportion of 'None' for Sleep Disorder is significantly higher in compare to other categories, indicating an imbalance, though it is not extremely severe.
 
 # #### check gender
 
