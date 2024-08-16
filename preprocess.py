@@ -3,6 +3,8 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from pathlib import Path
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import make_column_transformer
 
 plt.rc("font", size=14)
 plt.rc("axes", labelsize=14, titlesize=14)
@@ -373,8 +375,6 @@ lifestyle_data.groupby("Sleep Disorder")["Daily Steps"].value_counts() / lifesty
 # ### Blood Pressure is categorical, ordinal
 # ### Sleep Disorder is categorcal ordinal
 
-# In[73]:
-
 
 # https://en.wikipedia.org/wiki/Blood_pressure
 # https://www.medicinenet.com/blood_pressure_chart_reading_by_age/article.htm
@@ -395,8 +395,6 @@ for pressure in blood_uniq:
 
 
 # since Hypotension does not have any records its possible to ignore that.
-
-# In[78]:
 
 
 normal_pressure = ["117/76", "118/76", "115/75", "115/78", "119/77", "118/75"]
@@ -436,16 +434,28 @@ def func(x):
 lifestyle_data["Blood Pressure"] = lifestyle_data["Blood Pressure"].apply(func)
 
 
-# In[79]:
-
-
 lifestyle_data["Blood Pressure"].unique()
-
-
-# In[80]:
 
 
 lifestyle_data["Blood Pressure"].value_counts()
 
 
-# In[ ]:
+# ## BMI Category
+
+# according to this link:
+#
+# https://www.health.nsw.gov.au/heal/Pages/bmi.aspx#:~:text=Measuring%20Body%20Mass%20Index&text=It%20measures%20weight%20in%20relation,BMI%20of%2030%20or%20higher
+
+
+# ['Normal Weight', 'Normal', 'Overweight', 'Obese']
+# [0, 1, 2, 3]
+
+weight_mapping = {"Normal Weight": 0, "Normal": 1, "Overweight": 2, "Obese": 3}
+
+lifestyle_data["BMI Category"] = lifestyle_data["BMI Category"].map(weight_mapping)
+
+
+lifestyle_data["BMI Category"].unique()
+
+
+lifestyle_data["BMI Category"].value_counts()
