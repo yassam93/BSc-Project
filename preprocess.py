@@ -508,3 +508,20 @@ display(lifestyle_data.head())
 
 
 lifestyle_data.shape
+
+
+# ## Occupation
+
+
+occupation_ohe = OneHotEncoder()
+
+transformed = occupation_ohe.fit_transform(lifestyle_data[["Occupation"]])
+# Getting one hot encoded categories
+print(f"Occupation categories are: {occupation_ohe.categories_}")
+# adding the one hot encoded values back to the original df
+lifestyle_data[occupation_ohe.categories_[0]] = transformed.toarray()
+lifestyle_data = lifestyle_data.drop("Occupation", axis=1)
+display(lifestyle_data.head())
+
+
+lifestyle_data.shape
