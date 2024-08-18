@@ -536,3 +536,61 @@ lifestyle_data
 
 file_name = "preprocessed_dataset.csv"
 lifestyle_data.to_csv(file_name, sep="\t", encoding="utf-8", index=False, header=True)
+
+# # Check dependencies between features
+
+
+columns = lifestyle_data.columns
+columns
+
+
+columns_gender = ["Female", "Male", "Sleep Disorder"]
+df_gender = lifestyle_data[columns_gender]
+g = sns.PairGrid(df_gender)
+g.map_upper(sns.histplot, fill=False)
+g.map_lower(sns.kdeplot, fill=False)
+g.map_diag(sns.histplot, kde=True)
+save_fig(f"sleep_order_pair_grid_gender")
+
+
+columns_bmi = ["BMI Category", "Sleep Disorder"]
+df3_bmi = lifestyle_data[columns_bmi]
+g = sns.PairGrid(df3_bmi)
+g.map_upper(sns.histplot)
+g.map_lower(sns.kdeplot, fill=False)
+g.map_diag(sns.histplot, kde=True)
+
+save_fig(f"sleep_order_pair_grid_bmi")
+
+
+columns_bp = ["Blood Pressure", "Sleep Disorder"]
+df4_bp = lifestyle_data[columns_bp]
+g = sns.PairGrid(df4_bp)
+g.map_upper(sns.histplot)
+g.map_lower(sns.kdeplot, fill=False)
+g.map_diag(sns.histplot, kde=True)
+
+save_fig(f"sleep_order_pair_grid_bp")
+
+
+columns_occupation = [
+    "Accountant",
+    "Doctor",
+    "Engineer",
+    "Lawyer",
+    "Manager",
+    "Nurse",
+    "Sales Representative",
+    "Salesperson",
+    "Scientist",
+    "Software Engineer",
+    "Teacher",
+    "Sleep Disorder",
+]
+df5_occupation = lifestyle_data[columns_occupation]
+g = sns.PairGrid(df5_occupation)
+g.map_upper(sns.histplot)
+g.map_lower(sns.kdeplot, fill=False)
+g.map_diag(sns.histplot, kde=True)
+
+save_fig(f"sleep_order_pair_grid_occupation")
