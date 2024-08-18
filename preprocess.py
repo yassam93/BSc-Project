@@ -490,3 +490,21 @@ lifestyle_data.shape
 
 
 display(lifestyle_data.head())
+
+# # Convert nominal features
+
+# ## Gender
+
+
+gender_ohe = OneHotEncoder()
+
+transformed = gender_ohe.fit_transform(lifestyle_data[["Gender"]])
+# Getting one hot encoded categories
+print(f"Gender categories are: {gender_ohe.categories_}")
+# adding the one hot encoded values back to the original df
+lifestyle_data[gender_ohe.categories_[0]] = transformed.toarray()
+lifestyle_data = lifestyle_data.drop("Gender", axis=1)
+display(lifestyle_data.head())
+
+
+lifestyle_data.shape
