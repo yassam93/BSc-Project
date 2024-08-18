@@ -525,3 +525,14 @@ display(lifestyle_data.head())
 
 
 lifestyle_data.shape
+
+
+lifestyle_data["Sleep Disorder"] = lifestyle_data.pop("Sleep Disorder")
+lifestyle_data
+
+
+# # Save CSV to a file
+
+
+file_name = "preprocessed_dataset.csv"
+lifestyle_data.to_csv(file_name, sep="\t", encoding="utf-8", index=False, header=True)
