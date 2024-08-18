@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import dataframe_image as dfi
 from pathlib import Path
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.compose import make_column_transformer
@@ -277,6 +278,7 @@ lifestyle_data.groupby("Sleep Disorder")[
 # ### check blood pressure
 
 lifestyle_data["Blood Pressure"].unique()
+lifestyle_data["Blood Pressure"].value_counts()
 
 
 lifestyle_data["Blood Pressure"].value_counts() / number_entities
@@ -375,6 +377,10 @@ lifestyle_data.groupby("Sleep Disorder")["Daily Steps"].value_counts() / lifesty
 # ### Blood Pressure is categorical, ordinal
 # ### Sleep Disorder is categorcal ordinal
 
+# # Convert ordinal features
+
+# ## Blood Pressure
+
 
 # https://en.wikipedia.org/wiki/Blood_pressure
 # https://www.medicinenet.com/blood_pressure_chart_reading_by_age/article.htm
@@ -459,3 +465,28 @@ lifestyle_data["BMI Category"].unique()
 
 
 lifestyle_data["BMI Category"].value_counts()
+
+
+# ## Sleep Disorder
+
+
+# ['None', 'Sleep Apnea', 'Insomnia']
+# [0, 1, 2]
+
+sleep_disorder_mapping = {"None": 0, "Sleep Apnea": 1, "Insomnia": 2}
+
+lifestyle_data["Sleep Disorder"] = lifestyle_data["Sleep Disorder"].map(
+    sleep_disorder_mapping
+)
+
+
+lifestyle_data["Sleep Disorder"].unique()
+
+
+lifestyle_data["Sleep Disorder"].value_counts()
+
+
+lifestyle_data.shape
+
+
+display(lifestyle_data.head())
