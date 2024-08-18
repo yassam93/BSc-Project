@@ -594,3 +594,98 @@ g.map_lower(sns.kdeplot, fill=False)
 g.map_diag(sns.histplot, kde=True)
 
 save_fig(f"sleep_order_pair_grid_occupation")
+
+correlation = lifestyle_data.corr()
+sns.heatmap(correlation)
+
+
+# https://stackoverflow.com/a/42323184/8185618
+cmap = sns.diverging_palette(10, 250, as_cmap=True)
+
+
+def magnify():
+    return [
+        dict(selector="th", props=[("font-size", "7pt")]),
+        dict(selector="td", props=[("padding", "0em 0em")]),
+        dict(selector="th:hover", props=[("font-size", "12pt")]),
+        dict(
+            selector="tr:hover td:hover",
+            props=[("max-width", "200px"), ("font-size", "12pt")],
+        ),
+    ]
+
+
+correlation.style.background_gradient(cmap, axis=1).format(precision=2).set_properties(
+    **{"max-width": "100px", "font-size": "10pt"}
+).set_caption("Hover to magify").set_table_styles(magnify())
+
+# https://stackoverflow.com/a/42323184/8185618
+cmap = sns.diverging_palette(10, 250, as_cmap=True)
+
+
+def magnify():
+    return [
+        dict(selector="th", props=[("font-size", "7pt")]),
+        dict(selector="td", props=[("padding", "0em 0em")]),
+        dict(selector="th:hover", props=[("font-size", "12pt")]),
+        dict(
+            selector="tr:hover td:hover",
+            props=[("max-width", "200px"), ("font-size", "12pt")],
+        ),
+    ]
+
+
+style_correlation = (
+    correlation.style.background_gradient(cmap, axis=1)
+    .format(precision=2)
+    .set_properties(**{"max-width": "100px", "font-size": "10pt"})
+    .set_caption("Hover to magify")
+    .set_table_styles(magnify())
+)
+dfi.export(style_correlation, "./images/preprocessing/correlation_1.png")
+
+#https://stackoverflow.com/a/50703596/8185618
+correlation.style.background_gradient(cmap="coolwarm").format(precision=2)
+
+
+style_correlation = correlation.style.background_gradient(cmap="coolwarm").format(
+    precision=2
+)
+dfi.export(style_correlation, "./images/preprocessing/correlation_2.png")
+
+
+correlation.style.background_gradient(cmap="coolwarm", axis=None).format(precision=2)
+
+
+style_correlation = correlation.style.background_gradient(
+    cmap="coolwarm", axis=None
+).format(precision=2)
+dfi.export(style_correlation, "./images/preprocessing/correlation_3.png")
+
+
+correlation = lifestyle_data.corr()
+
+# Fill diagonal and upper half with NaNs
+mask = np.zeros_like(correlation, dtype=bool)
+mask[np.triu_indices_from(mask)] = True
+correlation[mask] = np.nan
+(
+    correlation.style.background_gradient(cmap="coolwarm", axis=None, vmin=-1, vmax=1)
+    .highlight_null(color="#f1f1f1")  # Colour NaNs grey
+    .format(precision=2)
+)
+
+
+correlation = lifestyle_data.corr()
+
+# Fill diagonal and upper half with NaNs
+mask = np.zeros_like(correlation, dtype=bool)
+mask[np.triu_indices_from(mask)] = True
+correlation[mask] = np.nan
+style_correlation = (
+    correlation.style.background_gradient(cmap="coolwarm", axis=None, vmin=-1, vmax=1)
+    .highlight_null(color="#f1f1f1")
+    .format(precision=2)
+)
+
+dfi.export(style_correlation, "./images/preprocessing/correlation_4.png")
