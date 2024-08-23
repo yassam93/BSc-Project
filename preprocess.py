@@ -689,3 +689,26 @@ style_correlation = (
 )
 
 dfi.export(style_correlation, "./images/preprocessing/correlation_4.png")
+
+
+
+
+# Modifying column names with "_" to avoid problem in R
+lifestyle_data.rename(
+    columns={
+        "Sleep Duration": "Sleep_Duration",
+        "Quality of Sleep": "Quality_of_Sleep",
+        "Physical Activity Level": "Physical_Activity_Level",
+        "Stress Level": "Stress_Level",
+        "BMI Category": "BMI_Category",
+        "Blood Pressure": "Blood_Pressure",
+        "Heart Rate": "Heart_Rate",
+        "Daily Steps": "Daily_Steps",
+        "Sleep Disorder": "Sleep_Disorder",
+        "Sales Representative": "Sales_Representative",
+        "Software Engineer": "Software_Engineer",
+    },
+    inplace=True,
+)
+file_name = "preprocessed_dataset_renamed_columns.csv"
+lifestyle_data.to_csv(file_name, sep="\t", encoding="utf-8", index=False, header=True)
