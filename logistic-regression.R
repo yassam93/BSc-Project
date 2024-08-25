@@ -1,6 +1,8 @@
 # install libraries
 # install.packages("dotwhisker")
 
+set.seed(10)
+
 req <- substitute(require(x, character.only = TRUE))
 libs<-c("sjPlot", "ggplot2", "jtools", "car", "blorr", "DescTools", "MASS",
         "dotwhisker", "interactions")
@@ -32,6 +34,7 @@ library(nnet)
 library(reshape2)
 # library(ggplot2)
 library(modelsummary)
+library(car)
 
 # load dataset
 Data = read.table("datasets/preprocessed_dataset.csv", header=TRUE, 
