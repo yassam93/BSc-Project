@@ -712,3 +712,16 @@ lifestyle_data.rename(
 )
 file_name = "preprocessed_dataset_renamed_columns.csv"
 lifestyle_data.to_csv(file_name, sep="\t", encoding="utf-8", index=False, header=True)
+
+# Scaling "Age", "Heart Rate", "Daily Steps", "Physical Activity Level" features
+from sklearn.preprocessing import minmax_scale
+
+lifestyle_data["Age"] = minmax_scale(lifestyle_data["Age"])
+lifestyle_data["Heart_Rate"] = minmax_scale(lifestyle_data["Heart_Rate"])
+lifestyle_data["Daily_Steps"] = minmax_scale(lifestyle_data["Daily_Steps"])
+lifestyle_data["Physical_Activity_Level"] = minmax_scale(
+    lifestyle_data["Physical_Activity_Level"]
+)
+
+file_name = "preprocessed_dataset_scaled_columns.csv"
+lifestyle_data.to_csv(file_name, sep="\t", encoding="utf-8", index=False, header=True)
