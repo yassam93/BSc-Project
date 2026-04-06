@@ -24,7 +24,6 @@ This repository has the entirety of the datasets and source code employed for my
 
 ## Supplementary Details 
 - Each script is thoroughly documented with comments elucidating the actions and approaches employed.
-The user did not provide any text. 
 - The datasets located in the `datasets/` folder are utilised in various scripts for the purpose of analysis and training of machine learning models.
 
 ## Supplementary Materials
